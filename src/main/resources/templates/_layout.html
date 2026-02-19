@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+
+<head th:fragment="header(title, links, scripts)">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Bootstrap + Bootswatch (change le thème ici si tu veux) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"
+    integrity="sha512-2bBQCjcnw658Lho4nlXJcc6WkV/UxpE/sAokbXPxQNGqmNdQrWqtw26Ns9kFF/yG792pKR1Sx8/Y1Lf1XN4GKA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.8/cyborg/bootstrap.min.css"
+    integrity="sha512-qyP0bQfJcrb1B8r2MZc5x0p2dK9j6VtC4Q4C0wR8KQz6fZ1+uB4m9m7X8m3fVYcUoBf3m0oYf2yWQb2Z5d5m1Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js"
+    integrity="sha512-HvOjJrdwNpDbkGJIG2ZNqDlVqMo77qbs4Me4cah0HoDrfhrbA+8SBlZn1KrvAQw7cILLPFJvdwIgphzQmMm+Pw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <link rel="icon" th:href="@{shop.png}">
+  <title th:replace="${title}">Fitness IUT</title>
+
+  <!-- Styles custom (léger) -->
+  <style>
+    .app-navbar {
+      background: linear-gradient(90deg, rgba(13, 110, 253, .35), rgba(111, 66, 193, .25));
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .app-hero {
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: radial-gradient(800px circle at 10% 10%, rgba(13, 110, 253, .25), transparent 50%),
+        radial-gradient(700px circle at 90% 30%, rgba(111, 66, 193, .18), transparent 55%),
+        rgba(255, 255, 255, .02);
+      border-radius: 1.25rem;
+      padding: 2rem;
+    }
+
+    .glass-card {
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .03);
+      border-radius: 1rem;
+    }
+
+    .nav-link.active {
+      font-weight: 600;
+      opacity: 1 !important;
+    }
+
+    .subtle {
+      opacity: .85;
+    }
+  </style>
+
+  <th:block th:replace="${links}" />
+  <th:block th:replace="${scripts}" />
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav th:fragment="menu" class="navbar navbar-expand-lg sticky-top app-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/}">
+        <span class="d-inline-flex align-items-center justify-content-center rounded-3"
+          style="width:36px;height:36px;background:rgba(13,110,253,.2);border:1px solid rgba(255,255,255,.08);">
+          <i class="fa-solid fa-dumbbell"></i>
+        </span>
+        <span>Fitness IUT</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto gap-lg-2">
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/cgv}">
+              <i class="fa-regular fa-file-lines me-1"></i> CGV
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/routines}">
+              <i class="fa-solid fa-list-check me-1"></i> Routines
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/about}">
+              <i class="fa-regular fa-circle-question me-1"></i> About
+            </a>
+          </li>
+        </ul>
+
+        <div class="d-flex gap-2">
+          <a class="btn btn-outline-light" th:href="@{/routines}">
+            <i class="fa-solid fa-arrow-right me-1"></i> Accéder
+          </a>
+          <a class="btn btn-primary" th:href="@{/routines/new}">
+            <i class="fa-solid fa-plus me-1"></i> Nouvelle routine
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="container py-4">
+    <!-- HERO -->
+    <section class="app-hero mb-4">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+          <h1 class="h3 mb-2">Gère tes routines et exercices simplement</h1>
+          <p class="subtle mb-3">
+            Crée des routines, ajoute des exercices, suis les répétitions et les charges.
+            Interface claire, rapide, et adaptée mobile.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-primary" th:href="@{/routines}">
+              <i class="fa-solid fa-list-check me-1"></i> Voir les routines
+            </a>
+            <a class="btn btn-outline-light" th:href="@{/routines/new}">
+              <i class="fa-solid fa-plus me-1"></i> Créer une routine
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="glass-card p-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="rounded-3 d-flex align-items-center justify-content-center"
+                style="width:44px;height:44px;background:rgba(111,66,193,.2);border:1px solid rgba(255,255,255,.08);">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
+              <div>
+                <div class="fw-semibold">Objectif</div>
+                <div class="subtle small">Progression & régularité</div>
+              </div>
+            </div>
+            <hr class="my-3" />
+            <div class="d-flex justify-content-between small">
+              <span class="subtle">Statut</span>
+              <span class="badge text-bg-success">En ligne</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK CARDS -->
+    <section class="row g-3">
+      <div class="col-md-4">
+        <div class="glass-card p-3 h-100">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <i class="fa-solid fa-bolt"></i>
+            <h2 class="h6 m-0">Rapide</h2>
+          </div>
+          <p class="subtle small mb-0">Navigation simple, actions accessibles, UX claire.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="glass-card p-3 h-100">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <i class="fa-solid fa-link"></i>
+            <h2 class="h6 m-0">Structuré</h2>
+          </div>
+          <p class="subtle small mb-0">Relations Routine → Exercices bien organisées.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="glass-card p-3 h-100">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <h2 class="h6 m-0">Responsive</h2>
+          </div>
+          <p class="subtle small mb-0">Lisible sur smartphone, tablette, desktop.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="container py-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2 border-top pt-3">
+      <span class="subtle small">© <span th:text="${#dates.format(#dates.createNow(),'yyyy')}">2026</span> Fitness IUT</span>
+      <div class="d-flex gap-3">
+        <a class="subtle small text-decoration-none" th:href="@{/cgv}">CGV</a>
+        <a class="subtle small text-decoration-none" th:href="@{/about}">About</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

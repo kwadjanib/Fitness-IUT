@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{_layout :: header(~{::title},_,_)}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mes Routines</title>
+</head>
+<body>
+  <nav th:replace="~{_layout::menu}"></nav>
+
+  <main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h3 m-0">Mes routines</h1>
+    </div>
+
+    <form th:action="@{/routines}" method="get" class="row g-2 mb-3">
+      <input type="hidden" name="s" th:value="${currentSize}" />
+      <div class="col-md-8">
+        <input
+          type="text"
+          class="form-control"
+          name="mc"
+          th:value="${motCle}"
+          placeholder="Rechercher une routine..."
+        />
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-outline-secondary w-100" type="submit">Rechercher</button>
+      </div>
+    </form>
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Date création</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:if="${#lists.isEmpty(listRoutines)}">
+            <td colspan="6" class="text-center text-muted">Aucune routine trouvée.</td>
+          </tr>
+          <tr th:each="routine : ${listRoutines}">
+            <td th:text="${routine.id}">1</td>
+            <td th:text="${routine.name}">Routine</td>
+            <td th:text="${routine.description}">Description</td>
+            <td th:text="${routine.creationDate}">2026-02-19</td>
+            <td>
+              <span
+                class="badge"
+                th:classappend="${routine.status == 'active'} ? ' text-bg-success' : ' text-bg-secondary'"
+                th:text="${routine.status}"
+              >
+                active
+              </span>
+            </td>
+            <td class="d-flex gap-2">
+              <a href="#" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+              <a
+                th:href="@{/routineDelete(id=${routine.id}, p=${currentPage}, s=${currentSize}, mc=${motCle})}"
+                class="btn btn-danger"
+                onclick="return confirm('Voulez-vous supprimer cette routine ?');"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <nav th:if="${pages != null and pages.length > 1}" aria-label="Pagination routines">
+      <ul class="pagination">
+        <li
+          class="page-item"
+          th:each="_, stat : ${pages}"
+          th:classappend="${stat.index == currentPage} ? ' active'"
+        >
+          <a
+            class="page-link"
+            th:text="${stat.index + 1}"
+            th:href="@{/routines(p=${stat.index}, s=${currentSize}, mc=${motCle})}"
+          >
+            1
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </main>
+</body>
+</html>
