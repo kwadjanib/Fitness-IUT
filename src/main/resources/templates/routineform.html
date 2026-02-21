@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{_layout :: header(~{::title},_,_)}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mes Routines</title>
+</head>
+<body>
+  <nav th:replace="~{_layout::menu}"></nav>
+
+  <main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h3 m-0">Formulaire de routine</h1>
+    </div>
+    
+    <form th:object="${routine}" th:action="@{/routineSave}" method="post">
+      <input type="hidden" th:field="*{id}" />
+      <input type="hidden" name="p" th:value="${p}" />
+      <input type="hidden" name="s" th:value="${s}" />
+      <input type="hidden" name="mc" th:value="${mc}" />
+      <input type="hidden" th:field="*{creationDate}" />
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Nom</label>
+        <input type="text" class="form-control" id="name" th:field="*{name}" required />
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" th:field="*{description}" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="status" class="form-label">Statut</label>
+        <select class="form-select" id="status" th:field="*{status}">
+          <option value="">Sélectionner un statut</option>
+          <option value="active">Actif</option>
+          <option value="inactive">Inactif</option>
+          </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Sauvegarder</button>
+    </form>
+
+    </main>
+ </body>
+ </html>

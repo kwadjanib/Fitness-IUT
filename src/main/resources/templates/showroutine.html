@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{_layout :: header(~{::title},_,_)}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${routine.name} + ' - Fitness IUT'">Nom de la routine - Fitness IUT</title>
+</head>
+<body>
+  <nav th:replace="~{_layout::menu}"></nav>
+  <main class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h3 m-0" th:text="${routine.name}">Nom de la routine</h1>
+    </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Date de création</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td th:text="${routine.name}">Nom de la routine</td>
+        <td th:text="${routine.description}">Description de la routine</td>
+        <td th:text="${routine.creationDate}">Date de création</td>
+      </tr>
+    </tbody>
+  </table>
+  <h2 class="h4 mt-4">Exercices</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Répétitions</th>
+        <th>Charge (kg)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:if="${#lists.isEmpty(routine.exercises)}">
+        <td colspan="3" class="text-center text-muted">Aucun exercice trouvé.</td>
+      </tr>
+      <tr th:each="exercise : ${routine.exercises}">
+        <td th:text="${exercise.name}">Nom de l'exercice</td>
+        <td th:text="${exercise.repetitions}">Répétitions</td>
+        <td th:text="${exercise.weight}">Charge</td>
+      </tr>
+      </tbody>
+</body>
+</html>

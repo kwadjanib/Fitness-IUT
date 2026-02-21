@@ -98,12 +98,12 @@
         </ul>
 
         <div class="d-flex gap-2">
-          <a class="btn btn-outline-light" th:href="@{/routines}">
-            <i class="fa-solid fa-arrow-right me-1"></i> Accéder
-          </a>
-          <a class="btn btn-primary" th:href="@{/routines/new}">
+  <!-- fin de header -->
+    <a th:href="@{/routineform(p=${currentPage}, s=${currentSize}, mc=${motCle})}" class="btn btn-primary">
             <i class="fa-solid fa-plus me-1"></i> Nouvelle routine
           </a>
+      
+          
         </div>
       </div>
     </div>
